@@ -11,10 +11,13 @@ class Player:
         self.shot = False
         self.health = PLAYER_MAX_HEALTH
         self.rel = 0
-        self.health_recovery_delay = 700
+        self.health_recovery_delay = 0
         self.time_prev = pg.time.get_ticks()
         # diagonal movement correction
         self.diag_move_corr = 1 / math.sqrt(2)
+        self.blood_screen_alpha = 0  # Initial alpha for the blood screen
+        self.blood_screen_duration = 0  # Duration for which the blood screen is active
+        self.blood_screen_active = False  # Flag to check if blood screen is active
 
     def recover_health(self):
         if self.check_health_recovery_delay() and self.health < PLAYER_MAX_HEALTH:
@@ -29,20 +32,18 @@ class Player:
     def check_game_over(self):
         if self.health < 1:
             self.game.object_renderer.game_over()
-            pg.display.flip()
-            pg.time.delay(1500)
-            self.game.new_game()
 
     def get_damage(self, damage):
         self.health -= damage
         self.game.object_renderer.player_damage()
         self.game.sound.player_pain.play()
+        self.blood_screen_active = True 
         self.check_game_over()
 
     def single_fire_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
             if event.button == 1 and not self.shot and not self.game.weapon.reloading:
-                self.game.sound.shotgun.play()
+                self.game.sound.play_shotgun_sound()
                 self.shot = True
                 self.game.weapon.reloading = True
 

@@ -1,8 +1,7 @@
 import math
 
 # game settings
-RES = WIDTH, HEIGHT = 1600, 900
-# RES = WIDTH, HEIGHT = 1920, 1080
+RES = WIDTH, HEIGHT = 1280, 720
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
 FPS = 0
@@ -19,7 +18,7 @@ MOUSE_MAX_REL = 40
 MOUSE_BORDER_LEFT = 100
 MOUSE_BORDER_RIGHT = WIDTH - MOUSE_BORDER_LEFT
 
-FLOOR_COLOR = (30, 30, 30)
+FLOOR_COLOR = (58, 12, 10)
 
 FOV = math.pi / 3
 HALF_FOV = FOV / 2
@@ -33,3 +32,12 @@ SCALE = WIDTH // NUM_RAYS
 
 TEXTURE_SIZE = 256
 HALF_TEXTURE_SIZE = TEXTURE_SIZE // 2
+
+# Menu settings
+MENU_FONT_SIZE = 32
+MENU_SMALL_FONT_SIZE = 16
+MENU_BACKGROUND_OPACITY = 77
+
+# Font settings
+FONT_PATH = 'resources/font/mc.ttf'  # Change this to your font file path
+MENU_FONT_SIZE = 32  # You can adjust the size as needed

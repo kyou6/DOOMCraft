@@ -1,5 +1,7 @@
+import pygame as pg
 from sprite_object import *
-from random import randint, random
+from collections import deque
+import random as rnd
 
 
 class NPC(AnimatedSprite):
@@ -12,7 +14,7 @@ class NPC(AnimatedSprite):
         self.pain_images = self.get_images(self.path + '/pain')
         self.walk_images = self.get_images(self.path + '/walk')
 
-        self.attack_dist = randint(3, 6)
+        self.attack_dist = rnd.randint(3, 6)
         self.speed = 0.03
         self.size = 20
         self.health = 100
@@ -43,7 +45,6 @@ class NPC(AnimatedSprite):
         next_pos = self.game.pathfinding.get_path(self.map_pos, self.game.player.map_pos)
         next_x, next_y = next_pos
 
-        # pg.draw.rect(self.game.screen, 'blue', (100 * next_x, 100 * next_y, 100, 100))
         if next_pos not in self.game.object_handler.npc_positions:
             angle = math.atan2(next_y + 0.5 - self.y, next_x + 0.5 - self.x)
             dx = math.cos(angle) * self.speed
@@ -52,8 +53,8 @@ class NPC(AnimatedSprite):
 
     def attack(self):
         if self.animation_trigger:
-            self.game.sound.npc_shot.play()
-            if random() < self.accuracy:
+            self.game.sound.play_npc_shot_sound()
+            if rnd.random() < 0.15:
                 self.game.player.get_damage(self.attack_damage)
 
     def animate_death(self):
@@ -71,7 +72,7 @@ class NPC(AnimatedSprite):
     def check_hit_in_npc(self):
         if self.ray_cast_value and self.game.player.shot:
             if HALF_WIDTH - self.sprite_half_width < self.screen_x < HALF_WIDTH + self.sprite_half_width:
-                self.game.sound.npc_pain.play()
+                self.game.sound.play_npc_pain_sound()
                 self.game.player.shot = False
                 self.pain = True
                 self.health -= self.game.weapon.damage
