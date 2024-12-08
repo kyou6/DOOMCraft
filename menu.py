@@ -11,8 +11,8 @@ class Menu:
         self.small_font = pg.font.Font(FONT_PATH, MENU_SMALL_FONT_SIZE)
         
         # Settings values
-        self.fullscreen = True
-        self.music_volume = 0.3
+        self.fullscreen = False
+        self.music_volume = 1.0
         self.sound_volume = 1.0
         
         # Slider states
@@ -27,10 +27,11 @@ class Menu:
         
         # Difficulty settings
         self.difficulty_presets = {
-            'Easy': [0.3, 0.3],
+            #'Dev': [100.0, 100.0],
+            'Easy': [0.4, 0.4],
             'Normal': [1.0, 1.0],
-            'Hard': [1.5, 1.5],
-            'Extreme': [3.0, 3.0]
+            'Hard': [2.0, 2.0],
+            'Extreme': [10.0, 10.0]
         }
         self.current_difficulty = 'Normal'
 
@@ -176,12 +177,7 @@ class Menu:
             pg.mixer.music.set_volume(self.music_volume)
         elif self.active_slider == 'Sound Volume':
             self.sound_volume = actual_value
-            # Update all sound effects volume
-            self.game.sound.shotgun.set_volume(self.sound_volume)
-            self.game.sound.npc_pain.set_volume(self.sound_volume)
-            self.game.sound.npc_death.set_volume(self.sound_volume)
-            self.game.sound.npc_shot.set_volume(self.sound_volume * 0.2)
-            self.game.sound.player_pain.set_volume(self.sound_volume)
+            self.game.sound.update_volume(self.sound_volume)
 
     def handle_button(self, button_text):
         if button_text == 'Resume Game':
@@ -199,11 +195,18 @@ class Menu:
         elif button_text == 'Back':
             self.current_menu = 'main'
         elif button_text == 'Fullscreen':
-            self.fullscreen = not self.fullscreen
-            if self.fullscreen:
-                pg.display.set_mode(RES, pg.FULLSCREEN)
-            else:
-                pg.display.set_mode(RES)
+            self.toggle_fullscreen()
         elif button_text in self.difficulty_presets:
             self.current_difficulty = button_text
-            # Apply difficulty settings here 
+            # Apply difficulty settings here
+
+    def toggle_fullscreen(self):
+        self.fullscreen = not self.fullscreen
+        if self.fullscreen:
+            pg.display.set_mode(RES, pg.FULLSCREEN)
+        else:
+            pg.display.set_mode(RES)
+
+    def handle_keydown(self, event):
+        if event.key in (pg.K_F11, pg.K_RETURN) and event.mod & pg.KMOD_ALT:
+            self.toggle_fullscreen()

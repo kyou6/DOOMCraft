@@ -18,11 +18,11 @@ class NPC(AnimatedSprite):
         self.speed = 0.03
         self.size = 20
         self.health = 100
-        self.attack_damage = 10
-        self.accuracy = 0.15
+        self.attack_damage = 4
+        self.accuracy = 0.35
         self.alive = True
         self.pain = False
-        self.ray_cast_value = False
+        self.ray_cast_value = True
         self.frame_counter = 0
         self.player_search_trigger = False
 
@@ -30,7 +30,7 @@ class NPC(AnimatedSprite):
         self.check_animation_time()
         self.get_sprite()
         self.run_logic()
-        # self.draw_ray_cast()
+        #self.draw_ray_cast()
 
     def check_wall(self, x, y):
         return (x, y) not in self.game.map.world_map

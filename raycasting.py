@@ -15,12 +15,18 @@ class RayCasting:
         for ray, values in enumerate(self.ray_casting_result):
             depth, proj_height, texture, offset = values
 
+            # Calculate shadow intensity based on depth and direction
+            shadow = min(1.0, depth / 20)  # Base shadow from distance
+            
             if proj_height < HEIGHT:
                 wall_column = self.textures[texture].subsurface(
                     offset * (TEXTURE_SIZE - SCALE), 0, SCALE, TEXTURE_SIZE
                 )
                 wall_column = pg.transform.scale(wall_column, (SCALE, proj_height))
-                wall_pos = (ray * SCALE, HALF_HEIGHT - proj_height // 2)
+                wall_column = wall_column.copy()
+                shadow_surface = pg.Surface(wall_column.get_size()).convert_alpha()
+                shadow_surface.fill((0, 0, 0, int(shadow * 120)))
+                wall_column.blit(shadow_surface, (0, 0))
             else:
                 texture_height = TEXTURE_SIZE * HEIGHT / proj_height
                 wall_column = self.textures[texture].subsurface(
@@ -28,8 +34,12 @@ class RayCasting:
                     SCALE, texture_height
                 )
                 wall_column = pg.transform.scale(wall_column, (SCALE, HEIGHT))
-                wall_pos = (ray * SCALE, 0)
+                wall_column = wall_column.copy()
+                shadow_surface = pg.Surface(wall_column.get_size()).convert_alpha()
+                shadow_surface.fill((0, 0, 0, int(shadow * 120)))
+                wall_column.blit(shadow_surface, (0, 0))
 
+            wall_pos = (ray * SCALE, HALF_HEIGHT - proj_height // 2) if proj_height < HEIGHT else (ray * SCALE, 0)
             self.objects_to_render.append((depth, wall_column, wall_pos))
 
     def ray_cast(self):

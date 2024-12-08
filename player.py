@@ -11,12 +11,12 @@ class Player:
         self.shot = False
         self.health = PLAYER_MAX_HEALTH
         self.rel = 0
-        self.health_recovery_delay = 0
+        self.health_recovery_delay = 500
         self.time_prev = pg.time.get_ticks()
         # diagonal movement correction
         self.diag_move_corr = 1 / math.sqrt(2)
         self.blood_screen_alpha = 0  # Initial alpha for the blood screen
-        self.blood_screen_duration = 0  # Duration for which the blood screen is active
+        self.blood_screen_duration = 1000  # Duration for which the blood screen is active
         self.blood_screen_active = False  # Flag to check if blood screen is active
 
     def recover_health(self):
