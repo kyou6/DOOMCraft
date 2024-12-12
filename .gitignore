@@ -27,11 +27,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+
 
 # Installer logs
 pip-log.txt
@@ -137,4 +133,4 @@ unused/VICTORY-11-28-2024.png
 unused/you-died-11-28-2024.png
 DOOMCraft.rar
 resources/textures/New Microsoft PowerPoint Presentation.png
-
+build.bat
