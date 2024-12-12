@@ -1,4 +1,5 @@
 import pygame as pg
+import sys
 from settings import *
 
 class Menu:
@@ -191,7 +192,7 @@ class Menu:
             self.current_menu = 'difficulty'
         elif button_text == 'Quit Game':
             pg.quit()
-            exit()
+            sys.exit()
         elif button_text == 'Back':
             self.current_menu = 'main'
         elif button_text == 'Fullscreen':
