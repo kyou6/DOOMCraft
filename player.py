@@ -46,6 +46,11 @@ class Player:
                 self.game.sound.play_shotgun_sound()
                 self.shot = True
                 self.game.weapon.reloading = True
+        elif event.type == pg.KEYDOWN:
+            # Add weapon switching with number keys
+            if event.key in [pg.K_1, pg.K_2, pg.K_3, pg.K_4, pg.K_5, pg.K_6, pg.K_7, pg.K_8]:
+                weapon_num = event.key - pg.K_0  # Convert key to number (1-8)
+                self.game.weapon.switch_weapon(weapon_num)
 
     def movement(self):
         sin_a = math.sin(self.angle)
