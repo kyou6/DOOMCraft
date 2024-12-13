@@ -1,5 +1,8 @@
-![DoomCraft](https://github.com/user-attachments/assets/f3371354-ef8f-4e5f-b528-84cee215ca0d)
+<div align="center">
+    <img src="https://github.com/user-attachments/assets/f3371354-ef8f-4e5f-b528-84cee215ca0d" alt="Mock-Up Screen" />
+</div>
 
+## 🖥️ DoomCraft
 DoomCraft is a first person shooter game, with an objective to fend off hordes of
 demons and the undead to save Earth from an apocalyptic invasion. Taken
 inspiration from the iconic game franchise from 1993 called “DOOM” and the most
@@ -79,7 +82,7 @@ widely popular game in the world, “Minecraft”. This game aims to have a DOOM
 ## 🖥️ Mock-Up Screens
 
 <div align="center">
-    <img src="images/mockup.png" alt="Mock-Up Screen" />
+    <img src="https://github.com/user-attachments/assets/e4104fc4-49fc-4b5b-b3d3-345127b13d77" alt="Mock-Up Screen" />
 </div>
 
 ---
